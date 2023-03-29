@@ -8,10 +8,10 @@ const calculationList = document.querySelector(".calculation-list");
 function render(box, param, result) {
     const li = document.createElement("li");
     if (param === "√") {
-        li.innerText = `${param}${box}=${result} `;
+        li.innerText = `${param}(${box})=${result} `;
         resultBox.value = "";
     } else if (param === "n<sup>2</sup>") {
-        li.innerHTML = `${box}<sup>2</sup>=${result} `;
+        li.innerHTML = `(${box})<sup>2</sup>=${result} `;
         resultBox.value = "";
     } else {
         li.innerText = `${box} ${param} ${result} `;
@@ -53,13 +53,16 @@ action.addEventListener("click", function (event) {
         resultBox.value = "";
         // resultBox.value = resultBox.value.toString().slice(0, -1);
     } else if (param === "√") {
-        let result = Math.sqrt(+resultBox.value).toFixed(2);
-        setTimeout(render, 1800, resultBox.value, param, result);
+        let num = eval(resultBox.value);
+        let result = Math.sqrt(num).toFixed(2);
+        setTimeout(render, 1200, resultBox.value, param, result);
         resultBox.value = result;
     } else if (param === "n<sup>2</sup>") {
-        let number = parseFloat(resultBox.value)
+        let num = eval(resultBox.value).toFixed(2);
+        let number = parseFloat(num);
+
         let result = Math.pow(number, 2).toFixed(2);
-        setTimeout(render, 1800, resultBox.value, param, result);
+        setTimeout(render, 1200, resultBox.value, param, result);
         resultBox.value = result;
     } else if (param === "\u00D7") {
         resultBox.value += "*";
@@ -71,7 +74,7 @@ action.addEventListener("click", function (event) {
         resultBox.value += "+";
     } else if (param === "=") {
         let result = eval(resultBox.value).toFixed(2);
-        setTimeout(render, 1800, resultBox.value, param, result);
+        setTimeout(render, 1200, resultBox.value, param, result);
         resultBox.value = result;
     }
 });
